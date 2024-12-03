@@ -1,0 +1,9 @@
+.App {
+  background-image: url('./Image/Background6.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  color: white;
+  /* background-color: #1D1F20;
+  height: 100vh; */
+}
