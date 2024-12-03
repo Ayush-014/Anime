@@ -40,7 +40,7 @@ const Show = () => {
         };
 
         fetchData();
-    }, [id]); // Added dependency array to refetch when `id` changes
+    }, [id]);
 
     if (isLoading) {
         return <div> <Loader /> </div>;
@@ -49,25 +49,6 @@ const Show = () => {
         return <div>Error: {error}</div>;
     }
 
-    // const seasonCard = data && data.seasons ? data.seasons.map((item) => (
-    //     <Link to={`/show/${item.id}`} key={item.id}>
-    //         <Card id={item.id} name={item.name} image={item.poster} />
-    //     </Link>
-    // )) : null;
-
-    // const popularCard = data && data.mostPopularAnimes ? data.mostPopularAnimes.map((item) => (
-    //     <Link to={`/show/${item.id}`} key={item.id}>
-    //         <SideCard
-    //             key={item.id}
-    //             name={item.name}
-    //             poster={item.poster}
-    //             rate={item.type}
-    //             episode={item.episodes.sub}
-    //         />
-    //     </Link>
-    // )) : null;
-
-    // const cardList = showRecommended ? data?.recommendedAnimes : data?.relatedAnimes;
     const cards = data?.recommendation?.map((item) => (
         <Link to={`/show/${item.xid}`} key={item.xid}>
             <MovieCard
@@ -88,12 +69,10 @@ const Show = () => {
             <Navbar />
             <div className="bg-slate-900 h-screen w-screen overflow-hidden scrollbar-hide">
                 <div className="u-non-blurred w-screen h-full overflow-x-hidden relative scrollbar-hide mt-16">
-                    <div className="pl-8 mb-2 flex gap-16 static h-[61%] w-screen mt-[18%] flex-col flex-wrap overflow-x-scroll scrollbar-hide">
-                        <div className="absolute w-full h-max bottom-0">
-                            <div className="overflow-hidden">
-                                <img src={data?.infoX[0]?.image}
-                                    className="h-56 w-44 border-4 border-gray-700 absolute right-16 -top-48" />
-                            </div>
+                    <div className="pl-8 mb-2 flex gap-16 static mt-[10%] flex-col flex-wrap overflow-x-scroll scrollbar-hide">
+                        <div className=" w-[97%] h-max flex">
+                            
+                            <div>
                             <div className="font-bold text-green-300 m-2">#1 Most Popular</div>
                             <div className="text-4xl font-bold text-white m-2">{data?.infoX[0]?.name}
                                 <span className="text-2xl"> ( {data?.infoX[1]?.japanese} )</span>
@@ -108,7 +87,6 @@ const Show = () => {
                                 ) : null}
                                 <div className="flex gap-1">
                                     <div className="bg-green-400 p-1 rounded-l-lg"><i className="ri-play-circle-fill"></i>{data?.infoX[1]?.statusAnime.toUpperCase()}</div>
-                                    {/* <div className="bg-green-300 p-1 border border-green-400">{data?.infoX[1]?.quality}</div> */}
                                     <div>
                                         {data?.infoX[1]?.premired ? (
                                             <div className="bg-green-400 p-1 rounded-r-lg"><i className="ri-calendar-fill"></i>{data?.infoX[1]?.premired}</div>
@@ -140,16 +118,16 @@ const Show = () => {
                                     <i className="ri-add-line ml-1 group-hover:scale-125"></i>
                                 </div>
                             </div>
+                            </div>
+
+                            {/* <div className="overflow-hidden"> */}
+                                <img src={data?.infoX[0]?.image}
+                                    className="h-full p-4 w-[50%] border-4 border-gray-700" />
+                            {/* </div> */}
+
                         </div>
                     </div>
-                    {/* {data && data.seasons && data.seasons.length > 0 ? (
-                        <>
-                            <p className="relative font-bold text-slate-300 text-lg mt-8 mx-2">SEASONS</p>
-                            <div className="px-3 py-4 flex flex-col flex-wrap w-screen h-56 gap-3 border border-gray-500 rounded-lg overflow-hidden overflow-x-scroll scrollbar-hide">
-                                {seasonCard}
-                            </div>
-                        </>
-                    ) : null} */}
+                    
                     <div className="mt-8 mx-4 flex w-screen h-max min-h-[30rem]">
                         <div className="w-full h-full overflow-hidden">
                             <button className="mt-2 rounded-lg overflow-hidden">
@@ -162,17 +140,7 @@ const Show = () => {
                                 {cards}
                             </div>
                         </div>
-                        {/* <div className="w-[18%] px-2 overflow-hidden">
-                            {data && data.mostPopularAnimes && data.mostPopularAnimes.length > 0 ? (
-                                <>
-                                    <p className="font-bold py-1 px-4 mt-6 mr-4 rounded-lg blurr text-center">MOST POPULAR</p>
-                                    <div className="mt-6 relative flex w-full gap-2 flex-wrap overflow-scroll scrollbar-hide">
-                                        {popularCard}
-                                    </div>
-                                </>
-                            ) : null}
-                        </div> */}
-                    </div>
+                      </div>
                     <div>
                         <Review />
                     </div>
@@ -183,105 +151,3 @@ const Show = () => {
 }
 
 export default Show;
-
-// import React, { useState, useEffect } from 'react';
-// import { Link, useParams } from 'react-router-dom';
-// import Card from "/src/components/Card";
-// import Review from "/src/components/Review";
-// import MovieCard from "/src/components/Moviecard";
-// import SideCard from "/src/components/SideCard";
-// import Loader from '../../components/Loader.jsx';
-// import Navbar from '../../components/header/Navbar';
-
-// const Show = () => {
-//     const { id } = useParams();
-//     const [data, setData] = useState(null);
-//     const [isLoading, setIsLoading] = useState(true);
-//     const [error, setError] = useState(null);
-//     const [showRecommended, setShowRecommended] = useState(true);
-
-//     useEffect(() => {
-//         const fetchData = async () => {
-//             try {
-//                 const response = await fetch(`https://aniwatch-api-v1-0.onrender.com/api/related/${id}`);
-//                 if (!response.ok) {
-//                     throw new Error('Failed to fetch data');
-//                 }
-//                 const json = await response.json();
-//                 setData(json);
-//                 setIsLoading(false);
-//             } catch (error) {
-//                 console.error(error.message);
-//                 setError(error.message);
-//                 setIsLoading(false);
-//             }
-//         };
-
-//         fetchData();
-//     }, [id]);
-
-//     if (isLoading) return <div className="bg-red-700">Loading...</div>;
-//     if (error) return <div>Error: {error}</div>;
-
-//     // Extract required fields
-//     const malscore = data?.infoX[1]?.malscore || "N/A";
-//     const japaneseName = data?.infoX[1]?.japanese || data?.infoX[0]?.jname || "Unknown";
-//     const description = data?.infoX[0]?.desc || "No description available.";
-//     const image = data?.infoX[0]?.image;
-
-//     return (
-//         <>
-//             <Navbar />
-//             <div className="bg-slate-900 h-screen w-screen overflow-hidden scrollbar-hide">
-//                 <div className="pl-8 mb-2 flex flex-col gap-4">
-//                     {/* Anime Image */}
-//                     <img src={image} alt="Anime" className="h-56 w-44 border-4 border-gray-700" />
-
-//                     {/* Anime Title */}
-//                     <h1 className="text-4xl font-bold text-white">
-//                         {data?.infoX[0]?.name} <span className="text-2xl">({japaneseName})</span>
-//                     </h1>
-
-//                     {/* MAL Score */}
-//                     <div className="flex items-center">
-//                         <span className="text-yellow-400 font-bold text-lg">MAL Score:</span>
-//                         <span className="ml-2 text-white text-lg">{malscore}</span>
-//                     </div>
-
-//                     {/* Description */}
-//                     <p className="text-white text-sm italic">{description}</p>
-
-//                     {/* Genres */}
-//                     <div className="flex flex-wrap gap-2">
-//                         {data?.infoX[1]?.genre?.map((genre) => (
-//                             <span key={genre} className="bg-green-400 p-1 text-xs rounded">
-//                                 {genre}
-//                             </span>
-//                         ))}
-//                     </div>
-
-//                     {/* Navigation */}
-//                     <div className="mt-4 flex gap-4">
-//                         <button onClick={() => setShowRecommended(true)} className={`py-2 px-4 ${showRecommended ? 'bg-green-600' : 'bg-slate-600'}`}>
-//                             Recommended
-//                         </button>
-//                         <button onClick={() => setShowRecommended(false)} className={`py-2 px-4 ${!showRecommended ? 'bg-green-600' : 'bg-slate-600'}`}>
-//                             Related
-//                         </button>
-//                     </div>
-
-//                     {/* Cards */}
-//                     <div className="flex flex-wrap gap-4">
-//                         {(showRecommended ? data?.recommendedAnimes : data?.relatedAnimes)?.map((item) => (
-//                             <Link to={`/show/${item.id}`} key={item.id}>
-//                                 <MovieCard {...item} />
-//                             </Link>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </div>
-//         </>
-//     );
-// };
-
-// export default Show;

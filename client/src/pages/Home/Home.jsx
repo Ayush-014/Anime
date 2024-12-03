@@ -91,7 +91,7 @@ export default function Home() {
                             <div className="h-72 w-2/3 flex flex-wrap flex-col justify-center text-white">
                                 
                                 {data.slides.map(anime => (
-                                    <Link to={`/show/${anime.jname}`} name={anime.jname}>
+                                    <Link to={`/show/${anime.animeId}`} name={anime.animeId}>
                                         <Spotlight name={anime.name} logo={anime.imageAnime} />
                                     </Link>
                                 ))}
