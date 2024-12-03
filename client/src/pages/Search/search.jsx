@@ -18,11 +18,14 @@ const Search = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log("fetching")
                 const response = await fetch(`https://api-aniwatch.onrender.com/anime/search?q=${id}&page=${pages}`);
                 if (!response.ok) {
                     throw new Error('Failed to fetch data');
                 }
+                console.log("fetched and setting json")
                 const json = await response.json();
+                console.log("json set")
                 setPages(json?.totalPages);
                 setData(json);
                 setIsLoading(false);
@@ -36,7 +39,7 @@ const Search = () => {
     }, []);
 
     if (isLoading) {
-        return <Loader />;
+        <div>Loading</div>;
     }
     if (error) {
         return <div>Error: {error}</div>;
@@ -51,11 +54,12 @@ const Search = () => {
         }
         
         try {
+            console.log("fetching")
             const response = await fetch(`https://api-aniwatch.onrender.com/anime/search?q=${id}&page=${page}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
+            
+            console.log("fetched and json")
             const json = await response.json();
+            console.log("json set")
             setData(json);
             setActivePage(page);
             setIsLoading(false);
@@ -77,7 +81,7 @@ const Search = () => {
                 type={item?.type}
                 duration={item.duration}
             />
-        </Link>
+            </Link>
     )) : null;
 
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 // import  logo "./newLogo.png"
-// import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 
 const navigation = [
   // { name: 'MAIN', href: '/', current: true },
@@ -57,7 +57,7 @@ export default function Example() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-<form action={`/search/${searchValue}`} className="flex items-center max-w-lg mx-auto mr-8">
+<form action={`/search/${searchValue}`} className="flex items-center max-w-lg mx-14">
             <label htmlFor="voice-search" className="sr-only">Search</label>
             <div className="relative w-full">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-3">
@@ -84,11 +84,11 @@ export default function Example() {
                     <a
                         key="LOGIN"
                         href="/login"
-                        className="mr-2 rounded-md relative group"
+                        className="mr-2 rounded-md border relative group"
                         aria-current={false ? 'page' : undefined}
                       >
                           <img src="/public/log.png" className="w-10 h-10" />
-                          <div className="absolute -left-14 bottom-2 blurr px-1 rounded-lg overflow-hidden opacity-0 group-hover:opacity-100 group-hover:duration-300 duration-300">Login</div>
+                          <div className="absolute -left-14 bottom-2 blurr px-1 rounded-lg overflow-hidden opacity-0 group-hover:opacity-100 group-hover:duration-300 duration-300 hover:opacity-0">Login</div>
                       </a>
                     
 
