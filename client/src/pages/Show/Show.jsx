@@ -68,7 +68,7 @@ const Show = () => {
     // )) : null;
 
     // const cardList = showRecommended ? data?.recommendedAnimes : data?.relatedAnimes;
-    const cards = recommendation ? recommendation.map((item) => (
+    const cards = data?.recommendation?.map((item) => (
         <Link to={`/show/${item.xid}`} key={item.xid}>
             <MovieCard
                 key={item.xid}
@@ -81,21 +81,21 @@ const Show = () => {
                 duration={item.duration}
             />
         </Link>
-    )) : null;
-
+    )) || null;
+    
     return (
         <>
             <Navbar />
             <div className="bg-slate-900 h-screen w-screen overflow-hidden scrollbar-hide">
-                <div className="u-non-blurred w-screen h-full overflow-x-hidden relative scrollbar-hide">
+                <div className="u-non-blurred w-screen h-full overflow-x-hidden relative scrollbar-hide mt-16">
                     <div className="pl-8 mb-2 flex gap-16 static h-[61%] w-screen mt-[18%] flex-col flex-wrap overflow-x-scroll scrollbar-hide">
                         <div className="absolute w-full h-max bottom-0">
                             <div className="overflow-hidden">
-                                <img src={data?.infoX?.image}
+                                <img src={data?.infoX[0]?.image}
                                     className="h-56 w-44 border-4 border-gray-700 absolute right-16 -top-48" />
                             </div>
                             <div className="font-bold text-green-300 m-2">#1 Most Popular</div>
-                            <div className="text-4xl font-bold text-white m-2">{data?.infoX?.name}
+                            <div className="text-4xl font-bold text-white m-2">{data?.infoX[0]?.name}
                                 <span className="text-2xl"> ( {data?.infoX[1]?.japanese} )</span>
                             </div>
                             <div className="m-2 flex gap-6">
@@ -118,7 +118,7 @@ const Show = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className="text-white m-2 w-[95%] text-sm italic backdrop-blur-lg"> {data?.infoX?.desc} </div>
+                            <div className="text-white m-2 w-[95%] text-sm italic backdrop-blur-lg"> {data?.infoX[0]?.desc} </div>
                             <div className="m-2 flex gap-[3px]">
                                 <div className="bg-green-400 p-[1px] text-xs rounded-l-lg">{data?.infoX[1]?.genre[0]}</div>
                                 {data?.infoX[1]?.genre.slice(1, -1).map((genre, index) => (
